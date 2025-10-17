@@ -1,0 +1,17 @@
+# Ignore data backups
+*.bak
+*.csv
+
+# Ignore data files
+cmt-files/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo# Virtual environment
+myenv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
