@@ -26,7 +26,6 @@ Thumbs.db
 myenv/
 
 # Data files
-*.csv
 *.xlsx
 *.xls
 *.json
@@ -50,3 +49,6 @@ cmt-files/
 
 # Ignore secrets.txt file
 secrets.txt
+
+# データ
+/data/*
