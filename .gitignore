@@ -1,23 +1,52 @@
-# Ignore data backups
-*.bak
-*.csv
-
-# Ignore data files
-cmt-files/
-
-# Python cache files
+# Python
 __pycache__/
-*.pyc
-*.pyo# Virtual environment
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb~
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.venv/
+*.sqlite3
 myenv/
 
-# Python cache files
-__pycache__/
-*.pyc
-*.pyo
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.json
+*.yaml
+*.parquet
+*.pkl
+
+# Reports
+*.pdf
+*.docx
+*.pptx
+*.pbix
+
+# Temporary
+tmp/
+*.bak
+*.tmp
+
+# Ignore cmt files
+cmt-files/
 
 # Ignore secrets.txt file
 secrets.txt
-
-# Ignore VS Code settings folder
-.vscode/
