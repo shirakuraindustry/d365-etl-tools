@@ -1,0 +1,40 @@
+
+
+- script: |
+    python -V
+    pip install --cache-dir $(Pipeline.Workspace)/.pip-cache pandas
+  displayName: 'Install Python deps (cached)'
+
+- script: |
+    echo "Run ETL Transform"
+    python pipelines/transform_validate.py --input $(input) --output $(output) --dupcol $(dupcol) > $(Agent.TempDirectory)/etl_transform.log
+  displayName: 'Run ETL Transform'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish transform logs'
+  condition: failed()
+  inputs:
+    PathtoPublish: '$(Agent.TempDirectory)/etl_transform.log'
+    ArtifactName: 'etl_logs'
+    publishLocation: 'Container'
+
+- script: |
+    echo "Summarize quality metrics"
+    python pipelines/quality_summary.py --log $(Agent.TempDirectory)/etl_transform.log > $(Pipeline.Workspace)/quality_summary.txt
+  displayName: 'Summarize Quality Metrics'
+  condition: succeeded()
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Quality Summary'
+  condition: succeeded()
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/quality_summary.txt'
+    artifact: 'quality_summary'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish transform logs'
+  condition: failed()
+  inputs:
+    PathtoPublish: '$(Agent.TempDirectory)'
+    ArtifactName: 'etl_logs'
+    publishLocation: 'Container'
